@@ -2,10 +2,10 @@
 #define MATRIX33D_H
 
 #ifndef MATHOPT_H
-#error "cannot use Vector3d.h directly"
+#error "cannot use Matrix33d.h directly"
 #endif  //MATHOPT_H
 
-#include <Vector3d.h>
+#include "Vector3d.h"
 
 namespace ly
 {
@@ -14,8 +14,8 @@ namespace ly
 	public:
 		Matrix33d() : Matrix33d(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) {}
 		explicit Matrix33d(double _a) : Matrix33d(_a, _a, _a, _a, _a, _a, _a, _a, _a) {}
-		Matrix33d(double, double, double, 
-			double, double, double, 
+		Matrix33d(double, double, double,
+			double, double, double,
 			double, double, double);
 		Matrix33d(double* _A) : Matrix33d(_A[0], _A[1], _A[2], _A[3], _A[4], _A[5], _A[6], _A[7], _A[8]) {}
 		Matrix33d(const Vector3d&, const Vector3d&, const Vector3d&);
@@ -27,8 +27,8 @@ namespace ly
 		double& operator()(int _i, int _j);
 		const double& operator()(int _i, int _j) const;
 
-		double* begin() { return std::begin(m_v); }
-		double* end() { return std::end(m_v); }
+		double* begin() { return &m_v[0][0]; }
+		double* end() { return &m_v[m_nrow][m_ncol]; }
 
 		std::size_t Rows() const { return m_nrow; }
 		std::size_t Cols() const { return m_ncol; }
@@ -48,7 +48,7 @@ namespace ly
 		double m_v[m_nrow][m_ncol];
 	};
 
-	inline Matrix33d::Matrix33d(double _a00, double _a01, double _a02, 
+	inline Matrix33d::Matrix33d(double _a00, double _a01, double _a02,
 			double _a10, double _a11, double _a12,
 			double _a20, double _a21, double _a22)
 	{

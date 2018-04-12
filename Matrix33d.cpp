@@ -1,4 +1,5 @@
-#include "Matrix33d.h"
+//#include "Matrix33d.h"
+#include "MathOpt.h"
 #include <stdexcept>
 #include <cmath>
 
@@ -99,16 +100,16 @@ namespace ly
 	{
 		if (::fabs(_k) <= ZERO)
 		{
-			std::throw std::overflow_error("divide by zero");
+			throw std::overflow_error("divide by zero");
 		}
 
-		double inv_k = 1/k;
-		operator*= inv_k;
+		double inv_k = 1/_k;
+		operator*=(inv_k);
 
 		return *this;
 	}
 
-	Matrix33d& Matrix33d::operator^=(double)
+	Matrix33d& Matrix33d::operator^=(double _k)
 	{
 		using ::pow;
 

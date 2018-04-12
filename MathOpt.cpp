@@ -1,4 +1,5 @@
 #include "MathOpt.h"
+#include <cmath>
 
 namespace ly
 {
@@ -78,8 +79,8 @@ namespace ly
 
 	Matrix33d operator-(const Matrix33d& _rhs)
 	{
-		return Matrix33d(-_rhs(0, 0), -_rhs(0, 1), -_rhs(0, 2), 
-			-_rhs(1, 0), -_rhs(1, 1), -_rhs(1, 2), 
+		return Matrix33d(-_rhs(0, 0), -_rhs(0, 1), -_rhs(0, 2),
+			-_rhs(1, 0), -_rhs(1, 1), -_rhs(1, 2),
 			-_rhs(2, 0), -_rhs(2, 1), -_rhs(2, 2));
 	}
 
@@ -149,7 +150,7 @@ namespace ly
 			_lhs(1, 0)*_rhs(0, 2) + _lhs(1, 1)*_rhs(1, 2) + _lhs(1, 2)*_rhs(2, 2),
 			_lhs(2, 0)*_rhs(0, 0) + _lhs(2, 1)*_rhs(1, 0) + _lhs(2, 2)*_rhs(2, 0),
 			_lhs(2, 0)*_rhs(0, 1) + _lhs(2, 1)*_rhs(1, 1) + _lhs(2, 2)*_rhs(2, 1),
-			_lhs(2, 0)*_rhs(0, 2) + _lhs(2, 1)*_rhs(1, 2) + _lhs(2, 2)*_rhs(2, 2));		
+			_lhs(2, 0)*_rhs(0, 2) + _lhs(2, 1)*_rhs(1, 2) + _lhs(2, 2)*_rhs(2, 2));
 	}
 
 	Vector3d operator*(const Matrix33d& _lhs, const Vector3d& _rhs)
@@ -174,16 +175,16 @@ namespace ly
 
 	Matrix33d Transform(const Matrix33d& _lhs)
 	{
-		return Matrix33d(_lhs(0, 0), _lhs(1, 0), _lhs(2, 0), 
-			_lhs(0, 1), _lhs(1, 1), _lhs(2, 1), 
+		return Matrix33d(_lhs(0, 0), _lhs(1, 0), _lhs(2, 0),
+			_lhs(0, 1), _lhs(1, 1), _lhs(2, 1),
 			_lhs(0, 2), _lhs(1, 2), _lhs(2, 2));
 	}
 
 	double Det(const Matrix33d& _lhs)
 	{
-		return _lhs(0, 0)*_lhs(1, 1)*_lhs(2, 2) + 
-		_lhs(0, 1)*_lhs(1, 2)*_lhs(2, 0) + 
-		_lhs(0, 2)*_lhs(1, 0)*_lhs(2, 1) - 
+		return _lhs(0, 0)*_lhs(1, 1)*_lhs(2, 2) +
+		_lhs(0, 1)*_lhs(1, 2)*_lhs(2, 0) +
+		_lhs(0, 2)*_lhs(1, 0)*_lhs(2, 1) -
 		_lhs(0, 0)*_lhs(1, 2)*_lhs(2, 1) -
 		_lhs(0, 1)*_lhs(1, 0)*_lhs(2, 2) -
 		_lhs(0, 2)*_lhs(1, 1)*_lhs(2, 0);
@@ -193,8 +194,8 @@ namespace ly
 	{
 		double rdet = 1.0/Det(_lhs);
 
-		return Matrix33d(rdet*(_lhs(1, 1)*_lhs(2, 2) - _lhs(1, 2)*_lhs(2, 1)), 
-			rdet*(_lhs(0, 2)*_lhs(2, 1) - _lhs(0, 1)*_lhs(2, 2)), 
+		return Matrix33d(rdet*(_lhs(1, 1)*_lhs(2, 2) - _lhs(1, 2)*_lhs(2, 1)),
+			rdet*(_lhs(0, 2)*_lhs(2, 1) - _lhs(0, 1)*_lhs(2, 2)),
 			rdet*(_lhs(0, 1)*_lhs(1, 2) - _lhs(0, 2)*_lhs(1, 1)),
 			rdet*(_lhs(1, 2)*_lhs(2, 0) - _lhs(1, 0)*_lhs(2, 2)),
 			rdet*(_lhs(0, 0)*_lhs(2, 2) - _lhs(0, 2)*_lhs(2, 0)),
@@ -203,5 +204,5 @@ namespace ly
 			rdet*(_lhs(0, 1)*_lhs(2, 0) - _lhs(0, 0)*_lhs(2, 1)),
 			rdet*(_lhs(0, 0)*_lhs(1, 1) - _lhs(0, 1)*_lhs(1, 0)));
 	}
-	
+
 }

@@ -1,4 +1,5 @@
-#include "Vector3d.h"
+//#include "Vector3d.h"
+#include "MathOpt.h"
 #include <stdexcept>
 #include <cmath>
 
@@ -32,7 +33,7 @@ namespace ly
 		return *this;
 	}
 
-	Vector3d& Vector3d::operator-=(const Vector3d& _rhs);
+	Vector3d& Vector3d::operator-=(const Vector3d& _rhs)
 	{
 		m_v[0] -= _rhs.m_v[0];
 		m_v[1] -= _rhs.m_v[1];
@@ -54,11 +55,11 @@ namespace ly
 	{
 		if (::fabs(_k) <= ZERO)
 		{
-			std::throw std::overflow_error("divide by zero");
+			throw std::overflow_error("divide by zero");
 		}
 
-		double inv_k = 1/k;
-		operator*= inv_k;
+		double inv_k = 1/_k;
+		operator*=(inv_k);
 
 		return *this;
 	}

@@ -1,6 +1,6 @@
 #ifndef MATHOPT_H
 #define MATHOPT_H
-// #define NDEBUG
+#define NDEBUG
 
 #include "Vector3d.h"
 #include "Matrix33d.h"

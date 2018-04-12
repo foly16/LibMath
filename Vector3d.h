@@ -2,6 +2,7 @@
 #define VECTOR3D_H
 
 #include <cstdlib>
+#include <iterator>
 #include <cassert>
 
 #ifndef MATHOPT_H
@@ -59,7 +60,7 @@ namespace ly
 		assert(_i >= 0 && _i < m_len);
 		return m_v[_i];
 	}
-	
+
 }
 
 #endif  //VECTOR3D_H
