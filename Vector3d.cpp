@@ -1,4 +1,3 @@
-//#include "Vector3d.h"
 #include "MathOpt.h"
 #include <stdexcept>
 #include <cmath>
@@ -73,5 +72,15 @@ namespace ly
 		m_v[2] = pow(m_v[2], _k);
 
 		return *this;
+	}
+
+	std::ostream& operator<<(std::ostream& _os, const Vector3d& _lhs)
+	{
+	    for(unsigned int i = 0; i < _lhs.m_len; ++i)
+        {
+            std::cout << "| " << _lhs.m_v[i] << " |" << std::endl;
+        }
+
+	    return _os;
 	}
 }

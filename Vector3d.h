@@ -1,6 +1,7 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 
+#include <iostream>
 #include <cstdlib>
 #include <iterator>
 #include <cassert>
@@ -14,6 +15,8 @@ namespace ly
 	class Vector3d
 	{
 	public:
+	    friend std::ostream& operator<<(std::ostream& _os, const Vector3d&);
+
 		Vector3d() : Vector3d(0.0, 0.0, 0.0) {}
 		explicit Vector3d(double _a) : Vector3d(_a, _a, _a) {}
 		Vector3d(double, double, double);
@@ -41,7 +44,7 @@ namespace ly
 
 	private:
 		static const std::size_t m_len = 3;
-		double m_v[3];
+		double m_v[m_len];
 	};
 
 	inline Vector3d::Vector3d(double _a0, double _a1, double _a2)
@@ -61,6 +64,7 @@ namespace ly
 		return m_v[_i];
 	}
 
+	std::ostream& operator<<(std::ostream& _os, const Vector3d&);
 }
 
 #endif  //VECTOR3D_H

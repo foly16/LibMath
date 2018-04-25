@@ -126,22 +126,6 @@ namespace ly
 
 	Matrix33d operator*(const Matrix33d& _lhs, const Matrix33d& _rhs)
 	{
-		/*
-		Matrix33d result;
-
-		for(int i = 0; i < _lhs.Rows(); ++i)
-		{
-			for(int j = 0; j < _rhs.Cols(); ++j)
-			{
-				for(int k = 0; k < _lhs.Cols(); ++k)
-				{
-					result(i, j) += _lhs(i, k)*_rhs(k, j);
-				}
-			}
-		}
-
-		return result;
-		*/
 		return Matrix33d(_lhs(0, 0)*_rhs(0, 0) + _lhs(0, 1)*_rhs(1, 0) + _lhs(0, 2)*_rhs(2, 0),
 			_lhs(0, 0)*_rhs(0, 1) + _lhs(0, 1)*_rhs(1, 1) + _lhs(0, 2)*_rhs(2, 1),
 			_lhs(0, 0)*_rhs(0, 2) + _lhs(0, 1)*_rhs(1, 2) + _lhs(0, 2)*_rhs(2, 2),
@@ -155,19 +139,6 @@ namespace ly
 
 	Vector3d operator*(const Matrix33d& _lhs, const Vector3d& _rhs)
 	{
-		/*
-		Vector3d result;
-
-		for(int i = 0; i < _lhs.Rows(); ++i)
-		{
-			for(int j = 0; j < _lhs.Cols(); ++j)
-			{
-				result(i) += _lhs(i, j)*_rhs(j);
-			}
-		}
-
-		return result;
-		*/
 		return Vector3d(_lhs(0, 0)*_rhs(0) + _lhs(0, 1)*_rhs(1) + _lhs(0, 2)*_rhs(2),
 			_lhs(1, 0)*_rhs(0) + _lhs(1, 1)*_rhs(1) + _lhs(1, 2)*_rhs(2),
 			_lhs(2, 0)*_rhs(0) + _lhs(2, 1)*_rhs(1) + _lhs(2, 2)*_rhs(2));
@@ -205,4 +176,47 @@ namespace ly
 			rdet*(_lhs(0, 0)*_lhs(1, 1) - _lhs(0, 1)*_lhs(1, 0)));
 	}
 
+	Vector3d Diag(const Matrix33d& _lhs)
+	{
+	    return Vector3d(_lhs(0, 0), _lhs(1, 1), _lhs(2, 2));
+	}
+
+	#define F1_DEFINE(math_func, param1)\
+	param1 math_func(const param1& _lhs)\
+	{\
+        param1 result(_lhs);\
+        std::for_each(std::begin(result), \
+                      std::end(result), \
+                      [](double& _x) { using ::math_func; _x = math_func(_x); }\
+                      );\
+        return result;\
+	}
+
+	#define F2_DEFINE(math_func, param1, param2)\
+	param1 math_func(const param1& _lhs, param2 k)\
+	{\
+        param1 result(_lhs);\
+        std::for_each(std::begin(result), \
+                      std::end(result), \
+                      [&k](double& _x) { using ::math_func; _x = math_func(_x, k); }\
+                      );\
+        return result;\
+	}
+
+	F1_DEFINE(sin, Vector3d)
+	F1_DEFINE(cos, Vector3d)
+	F1_DEFINE(tan, Vector3d)
+	F1_DEFINE(sqrt, Vector3d)
+
+	F1_DEFINE(sin, Matrix33d)
+	F1_DEFINE(cos, Matrix33d)
+	F1_DEFINE(tan, Matrix33d)
+	F1_DEFINE(sqrt, Matrix33d)
+
+	F2_DEFINE(pow, Vector3d, double)
+
+	F2_DEFINE(pow, Matrix33d, double)
+
+	#undef F2_DEFINE
+	#undef F1_DEFINE
 }
